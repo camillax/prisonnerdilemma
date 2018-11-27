@@ -52,15 +52,15 @@ void DrawBlock() {
 	}
 }
 
-int main() {
-	FsOpenWindow(16, 16, 800, 600, 1);
-	bool termFlag = false;
-	while (!termFlag) {
-		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-		DrawBlock();
-		FsSwapBuffers();
-		FsSleep(25);
-	}
-	return 0;
-}
+//	int main() {
+//		FsOpenWindow(16, 16, 800, 600, 1);
+//		bool termFlag = false;
+//		while (!termFlag) {
+//			glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+//			DrawBlock();
+//			FsSwapBuffers();
+//			FsSleep(25);
+//		}
+//		return 0;
+//}
 
