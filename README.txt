@@ -6,4 +6,4 @@ Everyone can import their sounds and create functions that plays the sound in th
 created at the end of Sounds.hpp so there is no need to create new ones in your own codes that may lead to conflicts when 
 compiled with other codes.
 
-This branch is just for archiving the alpha code submitted on 11/26/18
+To compile the code just run "nmake" from the developer command prompt for VS. 
