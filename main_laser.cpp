@@ -9,7 +9,7 @@
 #include "Laser.hpp"
 
 
-int main(){
+int main4(){
     int term = 0;
     FsOpenWindow(0,0,winX,winY,1);
     LaserBeam beam(20);

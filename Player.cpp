@@ -17,13 +17,13 @@ void Player::SetPlayerVal(int player_number, int x, int y, int angle) {
         {
             case 1:
                 p_x = 50;
-                p_y = 550;
+                p_y = 720-50;
                 p_theta = -45*PI/180;
                 p_num = player_number;
                 break;
             case 2:
-                p_x = 750;
-                p_y = 550;
+                p_x = 960-50;
+                p_y = 720-50;
                 p_theta = -135*PI/180;
                 p_num = player_number;
                 break;

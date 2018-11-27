@@ -158,29 +158,33 @@ bool MirrorAll::AnyHit(int lx, int ly) const {
 	return true;
 }
 
-int test_main(void) {
-
-	MirrorAll mirrors = MirrorAll();
-
-	//hardcoded, replace with mouse polling inputs
-	mirrors.AddMirror(60, 100);
-	mirrors.AddMirror(100, 300);
-	mirrors.AddMirror(600, 400);
-
-	FsOpenWindow(16, 16, winWid, winHei, 1);
-
-	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-
-	while (FsInkey() != FSKEY_ESC) {
-		FsPollDevice();
-
-		mirrors.Draw();
-		//replace parameters with laser coordinates
-		bool mirrorHit = mirrors.AnyHit(5, 5);
-
-		FsSwapBuffers();
-		FsSleep(10);
-	}
-
-	return 0;
-}
+//int main(void) {
+//	int term = 0;
+//	MirrorAll mirrors = MirrorAll();
+//
+//	//hardcoded, replace with mouse polling inputs
+//	mirrors.AddMirror(60, 100);
+//	mirrors.AddMirror(100, 300);
+//	mirrors.AddMirror(600, 400);
+//
+//	FsOpenWindow(16, 16, winWid, winHei, 1);
+//	while (term == 0) {
+//		FsPollDevice();
+//		int key = FsInkey();
+//
+//		if (key == FSKEY_ESC)
+//		{
+//			term = 1;
+//		}
+//
+//		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+//		mirrors.Draw();
+//		//replace parameters with laser coordinates
+//		//bool mirrorHit = mirrors.AnyHit(5, 5);
+//
+//		FsSwapBuffers();
+//		FsSleep(1000);
+//	}
+//
+//	return 0;
+//}

@@ -12,7 +12,7 @@ void Render(void *incoming)
 
 Input input[2];
 
-int main(void)
+int main1(void)
 {
     FsOpenWindow(0,0,800,600,1);
     Player test[2];
