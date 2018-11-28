@@ -39,13 +39,13 @@ int main(void)
 
 	//Pngs
 	YsRawPngDecoder pic_bkg, pic_start, pic_rules, png4;
-	pic_bkg.Decode("pd_bkg.png");
+	pic_bkg.Decode("../images/pd_bkg.png");
 	pic_bkg.Flip();
 
-	pic_start.Decode("pd_start.png");
+	pic_start.Decode("../images/pd_start.png");
 	pic_start.Flip();
 
-	pic_rules.Decode("pd_rules.png");
+	pic_rules.Decode("../images/pd_rules.png");
 	pic_rules.Flip();
 
 	//GRAPHIC LOOP

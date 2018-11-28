@@ -4,17 +4,16 @@
 TARGET = prisoners_dilemma.exe
 
 SOURCE =\
+	src/main_game.cpp\
 	src/blockWall.cpp\
 	src/fssimplewindow.cpp\
-	src/main_game.cpp\
 	src/mirror.cpp\
 	src/Player.cpp\
 	src/ysglfontdata.c\
 	src/yspng.cpp\
 	src/yssimplesound.cpp\
 	src/yssimplesound_dsound.cpp
-
-all:$(TARGET)
+	#src/prisoners_dilemma.cpp\
 
 $(TARGET):$(SOURCE)
-	cl /out:$(TARGET) /I include $(SOURCE)  
+	cl /I include /Fo".\build/" /Feprisoners_dilemma $(SOURCE)  
