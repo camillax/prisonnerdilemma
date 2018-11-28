@@ -92,20 +92,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="blockWall.cpp" />
     <ClCompile Include="fssimplewindow.cpp" />
     <ClCompile Include="main_game.cpp" />
     <ClCompile Include="mirror.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ysglfontdata.c" />
     <ClCompile Include="yspng.cpp" />
     <ClCompile Include="yssimplesound.cpp" />
     <ClCompile Include="yssimplesound_dsound.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Block.h" />
     <ClInclude Include="fssimplewindow.h" />
     <ClInclude Include="Laser.hpp" />
     <ClInclude Include="Mirror.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Sounds.hpp" />
+    <ClInclude Include="ysglfontdata.h" />
     <ClInclude Include="yspng.h" />
     <ClInclude Include="yssimplesound.h" />
   </ItemGroup>
@@ -114,6 +118,8 @@
     <Image Include="pd_copy.PNG" />
     <Image Include="pd_rules.PNG" />
     <Image Include="pd_start.PNG" />
+    <Image Include="rsz_brickblock.png" />
+    <Image Include="rsz_red-brick-wall.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

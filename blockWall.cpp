@@ -30,15 +30,15 @@ void DrawGreyBlock(int x, int y) {
 	glDrawPixels(greyBrick.wid, greyBrick.hei, GL_RGBA, GL_UNSIGNED_BYTE, greyBrick.rgba);
 }
 
-void DrawBlock() {
+void DrawBlock(int screenW_px, int screenH_px) {
 	//blockWall ()
 	int layer = 11;
 	int nums = 7;
-	int base = 599;
+	int base = screenH_px - 1;
 	int incre;
 	for(int i = 0; i < layer; i ++) {
-		incre = 200;
-		base = 599 - i * 39;
+		incre = screenW_px/4;
+		base = (screenH_px-1) - i * 39;
 		for (int j = 0; j < nums; j ++) {
 			if (j % 2 == 0) {
 				DrawRedBlock(incre, base);
@@ -52,15 +52,15 @@ void DrawBlock() {
 	}
 }
 
-int main() {
-	FsOpenWindow(16, 16, 800, 600, 1);
-	bool termFlag = false;
-	while (!termFlag) {
-		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-		DrawBlock();
-		FsSwapBuffers();
-		FsSleep(25);
-	}
-	return 0;
-}
+//int main() {
+//	FsOpenWindow(16, 16, 800, 600, 1);
+//	bool termFlag = false;
+//	while (!termFlag) {
+//		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+//		DrawBlock();
+//		FsSwapBuffers();
+//		FsSleep(25);
+//	}
+//	return 0;
+//}
 
