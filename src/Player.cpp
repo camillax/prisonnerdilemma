@@ -9,7 +9,7 @@
 #define PI 3.14159265
 
 //the default values are there to allow the user to either only choose the player number and use those defaults or to be able to set their own position as wanted.
-void Player::SetPlayerVal(int player_number, int x, int y, int angle, int screenW_px, int screenH_px) {
+void Player::SetPlayerVal(int player_number, int screenW_px, int screenH_px, int x=0, int y=0, int angle=0) {
 
     if(x==0 && y==0 && angle==0 && player_number!=0)
     {

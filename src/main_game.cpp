@@ -13,7 +13,7 @@
 #include "Player.h"
 #include "Mirror.h"
 #include "Block.h"
-#include "Laser.h"
+#include "Laser.hpp"
 
 
 int screenW_px = 800;
@@ -44,8 +44,8 @@ int main(void)
 
 	//Player
 	Player shooters[2];
-	shooters[0].SetPlayerVal(1, 0, 0, 0, screenW_px, screenH_px);
-	shooters[1].SetPlayerVal(2, 0, 0, 0, screenW_px, screenH_px);
+	shooters[0].SetPlayerVal(1, screenW_px, screenH_px);
+	shooters[1].SetPlayerVal(2, screenW_px, screenH_px);
 
 	//Pngs
 	YsRawPngDecoder pic_bkg, pic_start, pic_rules;
