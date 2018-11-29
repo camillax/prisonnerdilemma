@@ -5,6 +5,7 @@
 #include "fssimplewindow.h"
 #include "Sounds.hpp"
 
+
 #define Pi 3.14159
 
 int winX = 800, winY = 600; // window size 
@@ -39,13 +40,13 @@ void DrawCircle(double x,double y,int rad)
 //========================================================================================
 class Laser{
 public:
-    int ExistState = 1, hitCount = 0;
+    int ExistState = 1, hitCount = 0, hitMax = 10;
     double x = (double)x_init, y = (double)y_init, theta=45.0, v=5.0;
     Laser();
     ~Laser();
     void Set(double nx, double ny); // Set the x y coordinates
     void Move(void); // Move the object 
-    void CheckHit(MirrorAll &mirrors); // Check whether the laser object contacted obstacles
+    bool CheckHit(MirrorAll &mirrors); // Check whether the laser object contacted obstacles
     void Draw(void); // Draw the laser object
     void CheckExist(void); // Check whether the laser object exist
     void Reset(void); // to 
@@ -65,7 +66,7 @@ void Laser::Move(void){
     y = y - v*sin(theta*Pi/180.0);
 }
 
-void Laser::CheckHit(MirrorAll &mirrors){   
+bool Laser::CheckHit(MirrorAll &mirrors){   
     if(x>=winX || x<=0){
         double alpha = 90.0;
         theta = 2.0*alpha - theta;
@@ -76,13 +77,18 @@ void Laser::CheckHit(MirrorAll &mirrors){
         theta = 2.0*alpha - theta;
         hitCount++;
     }
+    if(BlockCheckHit(x, y) == true){
+        hitCount = hitMax;
+    }
 
     if(mirrors.AnyHit(x, y) == false){
         double alpha = 180.0;
         theta = 2.0*alpha - theta;
+        hitCount++;
+        return true; 
     }
 
-
+    return false;
 }
 
 void Laser::Draw(void) {
@@ -94,7 +100,7 @@ void Laser::Draw(void) {
 }
 
 void Laser::CheckExist(void){
-    if (hitCount >= 5){
+    if (hitCount >= hitMax){
         ExistState = 0;
     }    
 }
@@ -158,7 +164,9 @@ void LaserBeam::CheckExist(void){
 
 void LaserBeam::CheckHit(MirrorAll &mirrors){
     for(int i=0; i<n; i++){
-        laser[i].CheckHit(mirrors);
+        if (laser[i].CheckHit(mirrors) == true && i==0){
+            sound.PlayRebound();
+        }
     }
     if(laser[0].x>=winX || laser[0].x<=0 && laser[0].ExistState==1)
     {
@@ -168,6 +176,8 @@ void LaserBeam::CheckHit(MirrorAll &mirrors){
     {
         sound.PlayRebound();
     }
+
+
 }
 
 void LaserBeam::Draw(void){
