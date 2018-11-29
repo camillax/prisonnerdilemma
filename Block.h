@@ -16,5 +16,6 @@ using namespace std;
 void DrawRedBlock(int x, int y);
 void DrawGreyBlock(int x, int y);
 void DrawBlock(int screenW_px, int screenH_px);
+bool BlockCheckHit(int x, int y);
 
 #endif //HW_BLOCK_H
