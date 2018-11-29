@@ -131,7 +131,7 @@ int main(void)
 
 			//Laser
 			beam.Move();
-			beam.CheckHit();
+			beam.CheckHit(mirrors);
 			beam.CheckExist();
 			beam.Draw();
 
