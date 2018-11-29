@@ -4,6 +4,7 @@
 #include <math.h>
 #include "fssimplewindow.h"
 #include "Sounds.hpp"
+
 #define Pi 3.14159
 
 int winX = 800, winY = 600; // window size 
@@ -44,7 +45,7 @@ public:
     ~Laser();
     void Set(double nx, double ny); // Set the x y coordinates
     void Move(void); // Move the object 
-    void CheckHit(void); // Check whether the laser object contacted obstacles
+    void CheckHit(MirrorAll &mirrors); // Check whether the laser object contacted obstacles
     void Draw(void); // Draw the laser object
     void CheckExist(void); // Check whether the laser object exist
     void Reset(void); // to 
@@ -64,18 +65,21 @@ void Laser::Move(void){
     y = y - v*sin(theta*Pi/180.0);
 }
 
-void Laser::CheckHit(void){   
-    if(x>=winX || x<=0)
-    {
+void Laser::CheckHit(MirrorAll &mirrors){   
+    if(x>=winX || x<=0){
         double alpha = 90.0;
         theta = 2.0*alpha - theta;
         hitCount++; 
     }
-    if(y>=winY || y<=0)
-    {
+    if(y>=winY || y<=0){
         double alpha = 180.0;
         theta = 2.0*alpha - theta;
         hitCount++;
+    }
+
+    if(mirrors.AnyHit(x, y) == false){
+        double alpha = 180.0;
+        theta = 2.0*alpha - theta;
     }
 
 
@@ -117,7 +121,7 @@ public:
     ~LaserBeam();
     void Move(void);
     void CheckExist(void);
-    void CheckHit(void);
+    void CheckHit(MirrorAll &mirrors);
     void Draw(void);
     void Reset(void);
 };
@@ -152,15 +156,15 @@ void LaserBeam::CheckExist(void){
     }
 }
 
-void LaserBeam::CheckHit(void){
+void LaserBeam::CheckHit(MirrorAll &mirrors){
     for(int i=0; i<n; i++){
-        laser[i].CheckHit();
+        laser[i].CheckHit(mirrors);
     }
-    if((laser[0].x>=winX || laser[0].x<=0) && laser[0].ExistState==1)
+    if(laser[0].x>=winX || laser[0].x<=0 && laser[0].ExistState==1)
     {
         sound.PlayRebound();
     }
-    if((laser[0].y>=winY || laser[0].y<=0) && laser[0].ExistState==1)
+    if(laser[0].y>=winY || laser[0].y<=0 && laser[0].ExistState==1)
     {
         sound.PlayRebound();
     }
