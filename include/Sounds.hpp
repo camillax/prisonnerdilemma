@@ -29,8 +29,8 @@ Sounds::Sounds(){
     player.MakeCurrent();
 	player.Start();
     //FsChangeToProgramDir();
-    if(YSOK!=rebound.LoadWav("rebound.wav") &&
-	   YSOK!=rebound.LoadWav("datafiles/rebound.wav"))
+    if(YSOK!=rebound.LoadWav("sounds/rebound.wav") &&
+	   YSOK!=rebound.LoadWav("sounds/rebound.wav"))
 	{
 		printf("Error!  Cannot load rebound.wav!\n");
 	}

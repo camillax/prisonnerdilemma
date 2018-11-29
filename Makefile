@@ -16,4 +16,4 @@ SOURCE =\
 	#src/prisoners_dilemma.cpp\
 
 $(TARGET):$(SOURCE)
-	cl /I include /Fo".\build/" /Feprisoners_dilemma $(SOURCE)  
+	cl /I include /I images /I sounds /Fo".\build/" /Feprisoners_dilemma $(SOURCE)  
