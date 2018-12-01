@@ -4,10 +4,13 @@
 #include <math.h>
 #include "fssimplewindow.h"
 #include "Sounds.hpp"
+
+
 #define Pi 3.14159
 
+///////////whyyyyyyyyyyy why the fuck did you hard code this shit omg a;lkasj;ldfkja;oisdr;poiaewuro;iearjgf;ldaskzgf;lkfdsjn;klajfdhg
 int winX = 800, winY = 600; // window size 
-int x_init = 100, y_init = winY-100; // laser beam initial position
+int x_init = 100, y_init = winY-100, theta_init = 45.0; // default laser beam initial position
 
 //===helper function to draw laser======================================================
 void DrawCircle(double x,double y,int rad)
@@ -38,16 +41,16 @@ void DrawCircle(double x,double y,int rad)
 //========================================================================================
 class Laser{
 public:
-    int ExistState = 1, hitCount = 0;
-    double x = (double)x_init, y = (double)y_init, theta=45.0, v=5.0;
+    int ExistState = 1, hitCount = 0, hitMax = 10;
+    double x = (double)x_init, y = (double)y_init, theta= (double)theta_init, v=5.0;
     Laser();
     ~Laser();
     void Set(double nx, double ny); // Set the x y coordinates
     void Move(void); // Move the object 
-    void CheckHit(void); // Check whether the laser object contacted obstacles
+    bool CheckHit(MirrorAll &mirrors); // Check whether the laser object contacted obstacles
     void Draw(void); // Draw the laser object
     void CheckExist(void); // Check whether the laser object exist
-    void Reset(void); // to 
+    void Reset(void); // to
 };
 
 
@@ -64,21 +67,29 @@ void Laser::Move(void){
     y = y - v*sin(theta*Pi/180.0);
 }
 
-void Laser::CheckHit(void){   
-    if(x>=winX || x<=0)
-    {
+bool Laser::CheckHit(MirrorAll &mirrors){   
+    if(x>=winX || x<=0){
         double alpha = 90.0;
         theta = 2.0*alpha - theta;
         hitCount++; 
     }
-    if(y>=winY || y<=0)
-    {
+    if(y>=winY || y<=0){
         double alpha = 180.0;
         theta = 2.0*alpha - theta;
         hitCount++;
     }
+//    if(BlockCheckHit(x, y) == true){
+//        hitCount = hitMax;
+//    }
 
+    if(mirrors.AnyHit(x, y) == false){
+        double alpha = 180.0;
+        theta = 2.0*alpha - theta;
+        hitCount++;
+        return true; 
+    }
 
+    return false;
 }
 
 void Laser::Draw(void) {
@@ -90,7 +101,7 @@ void Laser::Draw(void) {
 }
 
 void Laser::CheckExist(void){
-    if (hitCount >= 5){
+    if (hitCount >= hitMax){
         ExistState = 0;
     }    
 }
@@ -98,7 +109,7 @@ void Laser::CheckExist(void){
 void Laser::Reset(void){
     x = x_init;
     y = y_init;
-    theta = 45.0;
+    theta = theta_init;
     hitCount = 0;
     ExistState = 1;
 }
@@ -117,9 +128,10 @@ public:
     ~LaserBeam();
     void Move(void);
     void CheckExist(void);
-    void CheckHit(void);
+    void CheckHit(MirrorAll &mirrors);
     void Draw(void);
     void Reset(void);
+    void Init(int x, int y, int theta);
 };
 
 LaserBeam::LaserBeam(){
@@ -152,9 +164,11 @@ void LaserBeam::CheckExist(void){
     }
 }
 
-void LaserBeam::CheckHit(void){
+void LaserBeam::CheckHit(MirrorAll &mirrors){
     for(int i=0; i<n; i++){
-        laser[i].CheckHit();
+        if (laser[i].CheckHit(mirrors) == true && i==0){
+            sound.PlayRebound();
+        }
     }
     if(laser[0].x>=winX || laser[0].x<=0 && laser[0].ExistState==1)
     {
@@ -164,6 +178,8 @@ void LaserBeam::CheckHit(void){
     {
         sound.PlayRebound();
     }
+
+
 }
 
 void LaserBeam::Draw(void){
@@ -182,4 +198,10 @@ void LaserBeam::Reset(void){
         double nextY = laser[i].y - (double)i*5.0*sin(a*Pi/180.0);
         laser[i].Set(nextX, nextY);
     }
+}
+
+void LaserBeam::Init(int x, int y, int theta) {
+    x_init = x;
+    y_init = y;
+    theta_init = theta;
 }

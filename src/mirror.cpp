@@ -131,7 +131,7 @@ void MirrorAll::AddMirror(int mx, int my) {
 	//If array is uninitialized, initializes it
 	if (mirrArray == NULL) {
 		//hopefully 1000 is plenty...don't want to deal with ubas
-		mirrArray = new Mirror[1000];
+		mirrArray = new Mirror[100];
 		ind = 0;
 	}
 

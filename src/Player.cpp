@@ -9,7 +9,7 @@
 #define PI 3.14159265
 
 //the default values are there to allow the user to either only choose the player number and use those defaults or to be able to set their own position as wanted.
-void Player::SetPlayerVal(int player_number, int screenW_px, int screenH_px, int x, int y, int angle) {
+void Player::SetPlayerVal(int player_number, int x, int y, int angle) {
 
     if(x==0 && y==0 && angle==0 && player_number!=0)
     {
@@ -17,26 +17,56 @@ void Player::SetPlayerVal(int player_number, int screenW_px, int screenH_px, int
         {
             case 1:
                 p_x = 50;
-                p_y = screenH_px - 50;
+                p_y = 550;
                 p_theta = -45*PI/180;
                 p_num = player_number;
                 break;
             case 2:
-                p_x = screenW_px - 50;
-                p_y = screenH_px - 50;
+                p_x = 750;
+                p_y = 550;
                 p_theta = -135*PI/180;
                 p_num = player_number;
                 break;
         }
     }
-    else
+    else if(player_number!=0 && x!=0 && y!=0 && angle==0)
     {
+        p_x = x;
+        p_y = y;
+        p_num = player_number;
+        switch(player_number)
+        {
+            case 1:
+                p_theta = -45*PI/180;
+                break;
+            case 2:
+                p_theta = -135*PI/180;
+                break;
+        }
+    }
+    else{
         p_x = x;
         p_y = y;
         p_theta = angle;
         p_num = player_number;
     }
 
+}
+
+void Player::ChangePlayerVal(int angle, int x, int y)
+{
+    if(angle!=0)
+    {
+        p_theta += angle*PI/180;
+    }
+    if(x!=0)
+    {
+        p_x += x;
+    }
+    if(y!=0)
+    {
+        p_y += y;
+    }
 }
 
 void Player::DrawPlayer() {

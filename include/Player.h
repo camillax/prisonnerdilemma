@@ -44,8 +44,8 @@ private:
     int b;
 
 public:
-    void SetPlayerVal(int player_number=0, int screenW_px=0, int screenH_px=0, int x=0, int y=0, int angle=0);
-    void ChangePlayerVal(int x=0, int y=0, int angle=0);
+    void SetPlayerVal(int player_number=0, int x=0, int y=0, int angle=0);
+    void ChangePlayerVal(int angle=0, int x=0, int y=0);
     void DrawPlayer(void);
 };
 
