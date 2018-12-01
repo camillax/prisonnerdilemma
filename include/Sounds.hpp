@@ -35,8 +35,8 @@ Sounds::Sounds(){
 		printf("Error!  Cannot load rebound.wav!\n");
 	}
 	
-    if(YSOK!=background.LoadWav("testbgm.wav") &&
-	   YSOK!=background.LoadWav("testbgm.wav"))
+    if(YSOK!=background.LoadWav("sounds/testbgm.wav") &&
+	   YSOK!=background.LoadWav("sounds/testbgm.wav"))
 	{
 		printf("Error!  Cannot load testbgm.wav!\n");
 	}
