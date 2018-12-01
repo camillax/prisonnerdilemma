@@ -47,6 +47,7 @@ public:
     void Set(double nx, double ny); // Set the x y coordinates
     void Move(void); // Move the object 
     bool CheckHit(MirrorAll &mirrors); // Check whether the laser object contacted obstacles
+    bool CheckHit(Player &player); //check whether the laser object contacted players
     void Draw(void); // Draw the laser object
     void CheckExist(void); // Check whether the laser object exist
     void Reset(void); // to 
@@ -91,6 +92,16 @@ bool Laser::CheckHit(MirrorAll &mirrors){
     return false;
 }
 
+bool Laser::CheckHit(Player &player)
+{
+    if(player.hit(x,y))
+    {
+        return true;
+    }
+    return false;
+}
+
+
 void Laser::Draw(void) {
     if(ExistState==1){
         glColor3ub(0,255,0);
@@ -128,8 +139,10 @@ public:
     void Move(void);
     void CheckExist(void);
     void CheckHit(MirrorAll &mirrors);
+    bool CheckHit(Player player);
     void Draw(void);
     void Reset(void);
+    void Init(int x, int y, int theta);
 };
 
 LaserBeam::LaserBeam(){
@@ -179,6 +192,14 @@ void LaserBeam::CheckHit(MirrorAll &mirrors){
 
 }
 
+bool LaserBeam::CheckHit(Player player) {
+    if(laser[0].CheckHit(player))
+    {
+        return true;
+    }
+    return false;
+}
+
 void LaserBeam::Draw(void){
     for(int i=0; i<n; i++){
         laser[i].Draw();
@@ -195,4 +216,10 @@ void LaserBeam::Reset(void){
         double nextY = laser[i].y - (double)i*5.0*sin(a*Pi/180.0);
         laser[i].Set(nextX, nextY);
     }
+}
+
+void LaserBeam::Init(int x, int y, int theta) {
+    x_init = x;
+    y_init = y;
+    theta_init = theta;
 }
