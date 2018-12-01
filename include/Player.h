@@ -46,6 +46,7 @@ private:
 public:
     void SetPlayerVal(int player_number=0, int x=0, int y=0, int angle=0);
     void ChangePlayerVal(int angle=0, int x=0, int y=0);
+    bool hit(int x, int y);
     void DrawPlayer(void);
 };
 
