@@ -51,7 +51,7 @@ int main(void)
     shooters[1].SetPlayerVal(2, p2_x, p2_y);
 
     //Pngs
-    YsRawPngDecoder pic_bkg, pic_start, pic_rules;
+	YsRawPngDecoder pic_bkg, pic_start, pic_rules, pic_winA, pic_winB;
     pic_bkg.Decode("images/pd_blocked.png");
     pic_bkg.Flip();
 
