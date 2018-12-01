@@ -20,7 +20,7 @@ protected:
 public:
     Sounds();
     ~Sounds();
-    //void PlayBackground(void);
+    void PlayBackground(void);
     void PlayRebound(void);
 };
 
@@ -34,23 +34,23 @@ Sounds::Sounds(){
 	{
 		printf("Error!  Cannot load rebound.wav!\n");
 	}
-	/*
-    if(YSOK!=background.LoadWav("music.wav") &&
-	   YSOK!=background.LoadWav("music.wav"))
+	
+    if(YSOK!=background.LoadWav("testbgm.wav") &&
+	   YSOK!=background.LoadWav("testbgm.wav"))
 	{
-		printf("Error!  Cannot load music.wav!\n");
+		printf("Error!  Cannot load testbgm.wav!\n");
 	}
-    */
+    
 }
 
 Sounds::~Sounds(){}
 
 
-/*
+
 void Sounds::PlayBackground(void){
     player.PlayBackground(background);
 }
-*/
+
 
 void Sounds::PlayRebound(void){
     player.Stop(rebound);
