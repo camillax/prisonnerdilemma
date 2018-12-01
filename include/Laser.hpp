@@ -41,7 +41,7 @@ void DrawCircle(double x,double y,int rad)
 class Laser{
 public:
     int ExistState = 1, hitCount = 0, hitMax = 10;
-    double x = (double)x_init, y = (double)y_init, theta=45.0, v=5.0;
+    double x = (double)x_init, y = (double)y_init, theta=(double)theta_init, v=5.0;
     Laser();
     ~Laser();
     void Set(double nx, double ny); // Set the x y coordinates
@@ -78,9 +78,9 @@ bool Laser::CheckHit(MirrorAll &mirrors){
         theta = 2.0*alpha - theta;
         hitCount++;
     }
-    if(BlockCheckHit(x, y) == true){
-        hitCount = hitMax;
-    }
+    //if(BlockCheckHit(x, y) == true){
+    //    hitCount = hitMax;
+    //}
 
     if(mirrors.AnyHit(x, y) == false){
         double alpha = 180.0;
@@ -119,7 +119,7 @@ void Laser::CheckExist(void){
 void Laser::Reset(void){
     x = x_init;
     y = y_init;
-    theta = 45.0;
+    theta = theta_init;
     hitCount = 0;
     ExistState = 1;
 }
