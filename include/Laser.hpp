@@ -177,7 +177,7 @@ void LaserBeam::CheckExist(void){
 
 void LaserBeam::CheckHit(MirrorAll &mirrors){
     for(int i=0; i<n; i++){
-        if (laser[i].CheckHit(mirrors) == true && i==0){
+        if (laser[i].CheckHit(mirrors) == true && i==0 && laser[0].ExistState==1){
             sound.PlayRebound();
         }
     }
