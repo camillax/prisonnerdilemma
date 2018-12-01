@@ -38,6 +38,7 @@ class MirrorAll
 private:
 	int ind;
 	Mirror *mirrArray;
+	double hitAngle;
 
 public:
 	MirrorAll();
@@ -45,6 +46,8 @@ public:
 
 	void CleanUp(void);
 	void AddMirror(int mx, int my, double theta); //can change to take doubles as well
+	void SetHitAngle(int ind);
+	double GetHitAngle(void) const;
 	void Draw(void) const;
 	bool AnyHit(int lx, int ly) const;
 };

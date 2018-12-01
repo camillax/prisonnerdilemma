@@ -31,7 +31,6 @@ public:
 	double GetY(void) const;
 	double GetAngle(void) const;
 
-
 	void Place(int mx, int my, double theta);
 	bool Hit(int lx, int ly) const;
 	void DrawMirror(void) const;
@@ -64,6 +63,7 @@ double Mirror::GetY(void) const {
 	return y;
 }
 
+//returns in radians!!
 double Mirror::GetAngle(void) const {
 	return angle;
 }
@@ -120,10 +120,35 @@ bool Mirror::Hit(int lx, int ly) const {
 	double x4 = x1 - wid*cos(angle);
 	double y4 = y1 + wid*sin(angle);
 
-	if (lx >= x - wid / 2. && lx <= x + wid / 2. &&
-		ly >= y - hei / 2. && ly <= y + hei / 2.) {
+	double d1 = sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
+	double d1a = sqrt(pow(lx - x1, 2) + pow(ly - y1, 2));
+	double d1b = sqrt(pow(lx - x2, 2) + pow(ly - y2, 2));
+
+	double d2 = sqrt(pow(x2 - x3, 2) + pow(y2 - y3, 2));
+	double d2a = sqrt(pow(lx - x2, 2) + pow(ly - y2, 2));
+	double d2b = sqrt(pow(lx - x3, 2) + pow(ly - y3, 2));
+
+	double d3 = sqrt(pow(x3 - x4, 2) + pow(y3 - y4, 2));
+	double d3a = sqrt(pow(lx - x3, 2) + pow(ly - y3, 2));
+	double d3b = sqrt(pow(lx - x4, 2) + pow(ly - y4, 2));
+
+	double d4 = sqrt(pow(x4 - x1, 2) + pow(y4 - y1, 2));
+	double d4a = sqrt(pow(lx - x4, 2) + pow(ly - y4, 2));
+	double d4b = sqrt(pow(lx - x1, 2) + pow(ly - y1, 2));
+
+	if ((d1a + d1b <= d1) ||
+		(d2a + d2b <= d2) ||
+		(d3a + d3b <= d3) ||
+		(d4a + d4b <= d4)) {
 		return true;
 	}
+
+	// if (lx >= x - wid / 2. && lx <= x + wid / 2. &&
+	// 	ly >= y - hei / 2. && ly <= y + hei / 2.) {
+	// 	return true;
+	// }
+
+
 	return false;
 }
 
@@ -138,6 +163,7 @@ class MirrorAll {
 private:
 	int ind;
 	Mirror *mirrArray;
+	double hitAngle;
 
 public:
 	MirrorAll();
@@ -145,6 +171,8 @@ public:
 
 	void CleanUp(void);
 	void AddMirror(int mx, int my, double theta); //can change to take doubles as well
+	void SetHitAngle(int ind);
+	double GetHitAngle(void) const;
 	void Draw(void) const;
 	bool AnyHit(int lx, int ly) const;
 };
@@ -153,6 +181,7 @@ public:
 MirrorAll::MirrorAll(void) {
 	mirrArray = NULL;
 	ind = 0;
+	hitAngle = -1;
 }
 
 //Destructor
@@ -173,6 +202,7 @@ void MirrorAll::AddMirror(int mx, int my, double theta) {
 		//hopefully 1000 is plenty...don't want to deal with ubas
 		mirrArray = new Mirror[100];
 		ind = 0;
+		hitAngle = -1;
 	}
 
 	//add to array, increase index
@@ -180,6 +210,17 @@ void MirrorAll::AddMirror(int mx, int my, double theta) {
 	newMirr.Place(mx, my, theta);
 	mirrArray[ind] = newMirr;
 	ind++;
+}
+
+void MirrorAll::SetHitAngle(int hitInd) {
+	if (mirrArray != NULL) {
+		hitAngle = mirrArray[hitInd].GetAngle();
+	}
+}
+
+//returns in radians!
+double MirrorAll::GetHitAngle(int ind) const {
+	return hitAngle;
 }
 
 //Draws all the mirrors
@@ -193,7 +234,10 @@ void MirrorAll::Draw(void) const {
 //Checks if any of the mirrors have been hit
 bool MirrorAll::AnyHit(int lx, int ly) const {
 	for (int i = 0; i < ind; i++) {
-		if (mirrArray[i].Hit(lx, ly)) return false;
+		if (mirrArray[i].Hit(lx, ly)) {
+			SetHitAngle(i);
+			return false;
+		}
 	}
 	return true;
 }
