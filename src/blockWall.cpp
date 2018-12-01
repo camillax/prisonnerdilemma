@@ -54,7 +54,7 @@ void DrawBlock() {
 
 
 bool BlockCheckHit(int x, int y) {
-	if (((x >= 200 && x <= 570) && y >= 209) || (y == 209 && (x >= 200 && x <= 570))) {
+	if (((x >= 200 && x <= 570) && y >= 209)) {
 		return true;
 	}
 	return false;
