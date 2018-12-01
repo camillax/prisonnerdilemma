@@ -33,6 +33,7 @@ int main(void)
     bool rules_ready[2] = { false, false }; //each player
     int mode = 0;
     int start_sec = 1; //duration of start image (seconds)
+	bool winner[2] = { false, false };
 
     //Laser
     LaserBeam beam(20);
@@ -59,6 +60,12 @@ int main(void)
 
     pic_rules.Decode("images/pd_rules.png");
     pic_rules.Flip();
+
+	pic_winA.Decode("images/pd_winA.png");
+	pic_winA.Flip();
+
+	pic_winB.Decode("images/pd_winB.png");
+	pic_winB.Flip();
 
     ////GRAPHIC LOOP////
     FsOpenWindow(16, 16, screenW_px+1, screenH_px+1, 1);
@@ -233,6 +240,14 @@ int main(void)
         {
             mode = 2;
         }
+		else if ((mode == 2) && winner[0] == true) // Player A won
+		{
+			mode = 3;
+		}
+		else if ((mode == 2) && winner[1] == true) // Player B won
+		{
+			mode = 4;
+		}
 
         ////DRAW////
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
@@ -280,6 +295,15 @@ int main(void)
                 //bool mirrorHit = mirrors.AnyHit(5, 5);
 
                 break;
+			case 3: 
+				glRasterPos2d(0, pic_winA.hei);
+				glDrawPixels(pic_winA.wid, pic_winA.hei, GL_RGBA, GL_UNSIGNED_BYTE, pic_winA.rgba);
+				break;
+			
+			case 4:
+				glRasterPos2d(0, pic_winB.hei);
+				glDrawPixels(pic_winB.wid, pic_winB.hei, GL_RGBA, GL_UNSIGNED_BYTE, pic_winB.rgba);
+				break;
         }
 
         FsSwapBuffers();
