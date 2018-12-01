@@ -9,7 +9,7 @@
 #define Pi 3.14159
 
 int winX = 800, winY = 600; // window size 
-int x_init = 100, y_init = winY-100; // laser beam initial position
+int x_init = 100, y_init = winY-100,  theta_init = 45.0; // laser beam initial position
 
 //===helper function to draw laser======================================================
 void DrawCircle(double x,double y,int rad)
