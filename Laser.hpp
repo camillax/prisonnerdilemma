@@ -168,11 +168,11 @@ void LaserBeam::CheckHit(MirrorAll &mirrors){
             sound.PlayRebound();
         }
     }
-    if(laser[0].x>=winX || laser[0].x<=0 && laser[0].ExistState==1)
+    if((laser[0].x>=winX || laser[0].x<=0) && laser[0].ExistState==1)
     {
         sound.PlayRebound();
     }
-    if(laser[0].y>=winY || laser[0].y<=0 && laser[0].ExistState==1)
+    if((laser[0].y>=winY || laser[0].y<=0) && laser[0].ExistState==1)
     {
         sound.PlayRebound();
     }
