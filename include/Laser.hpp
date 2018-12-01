@@ -8,9 +8,8 @@
 
 #define Pi 3.14159
 
-///////////whyyyyyyyyyyy why the fuck did you hard code this shit omg a;lkasj;ldfkja;oisdr;poiaewuro;iearjgf;ldaskzgf;lkfdsjn;klajfdhg
 int winX = 800, winY = 600; // window size 
-int x_init = 100, y_init = winY-100, theta_init = 45.0; // default laser beam initial position
+int x_init = 100, y_init = winY-100; // laser beam initial position
 
 //===helper function to draw laser======================================================
 void DrawCircle(double x,double y,int rad)
@@ -42,7 +41,7 @@ void DrawCircle(double x,double y,int rad)
 class Laser{
 public:
     int ExistState = 1, hitCount = 0, hitMax = 10;
-    double x = (double)x_init, y = (double)y_init, theta= (double)theta_init, v=5.0;
+    double x = (double)x_init, y = (double)y_init, theta=45.0, v=5.0;
     Laser();
     ~Laser();
     void Set(double nx, double ny); // Set the x y coordinates
@@ -50,7 +49,7 @@ public:
     bool CheckHit(MirrorAll &mirrors); // Check whether the laser object contacted obstacles
     void Draw(void); // Draw the laser object
     void CheckExist(void); // Check whether the laser object exist
-    void Reset(void); // to
+    void Reset(void); // to 
 };
 
 
@@ -78,9 +77,9 @@ bool Laser::CheckHit(MirrorAll &mirrors){
         theta = 2.0*alpha - theta;
         hitCount++;
     }
-//    if(BlockCheckHit(x, y) == true){
-//        hitCount = hitMax;
-//    }
+    if(BlockCheckHit(x, y) == true){
+        hitCount = hitMax;
+    }
 
     if(mirrors.AnyHit(x, y) == false){
         double alpha = 180.0;
@@ -109,7 +108,7 @@ void Laser::CheckExist(void){
 void Laser::Reset(void){
     x = x_init;
     y = y_init;
-    theta = theta_init;
+    theta = 45.0;
     hitCount = 0;
     ExistState = 1;
 }
@@ -131,7 +130,6 @@ public:
     void CheckHit(MirrorAll &mirrors);
     void Draw(void);
     void Reset(void);
-    void Init(int x, int y, int theta);
 };
 
 LaserBeam::LaserBeam(){
@@ -170,15 +168,14 @@ void LaserBeam::CheckHit(MirrorAll &mirrors){
             sound.PlayRebound();
         }
     }
-    if(laser[0].x>=winX || laser[0].x<=0 && laser[0].ExistState==1)
+    if((laser[0].x>=winX || laser[0].x<=0) && laser[0].ExistState==1)
     {
         sound.PlayRebound();
     }
-    if(laser[0].y>=winY || laser[0].y<=0 && laser[0].ExistState==1)
+    if((laser[0].y>=winY || laser[0].y<=0) && laser[0].ExistState==1)
     {
         sound.PlayRebound();
     }
-
 
 }
 
@@ -198,10 +195,4 @@ void LaserBeam::Reset(void){
         double nextY = laser[i].y - (double)i*5.0*sin(a*Pi/180.0);
         laser[i].Set(nextX, nextY);
     }
-}
-
-void LaserBeam::Init(int x, int y, int theta) {
-    x_init = x;
-    y_init = y;
-    theta_init = theta;
 }
