@@ -15,6 +15,10 @@ Draw()--will draw the mirror
 Hit(lx, ly)--given laser location lx, ly, will check
 if it has been hit*/
 
+bool distEqual(double a, double b) {
+	return (fabs(a - b) < 0.01);
+}
+
 class Mirror {
 public:
 private:
@@ -136,10 +140,10 @@ bool Mirror::Hit(int lx, int ly) const {
 	double d4a = sqrt(pow(lx - x4, 2) + pow(ly - y4, 2));
 	double d4b = sqrt(pow(lx - x1, 2) + pow(ly - y1, 2));
 
-	if ((d1a + d1b <= d1) ||
-		(d2a + d2b <= d2) ||
-		(d3a + d3b <= d3) ||
-		(d4a + d4b <= d4)) {
+	if (distEqual(d1a + d1b, d1) ||
+		distEqual(d2a + d2b, d2) ||
+		distEqual(d3a + d3b, d3) ||
+		distEqual(d4a + d4b, d4)) {
 		return true;
 	}
 

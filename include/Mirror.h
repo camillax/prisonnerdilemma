@@ -11,6 +11,8 @@
 #include <iostream>
 #include "fssimplewindow.h"
 
+bool distEqual(double a, double b);
+
 class Mirror
 {
 public:
