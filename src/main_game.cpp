@@ -11,6 +11,7 @@
 #include "yspng.h"
 #include "ysglfontdata.h"
 
+#include "Sounds.h"
 #include "Player.h"
 #include "Mirror.h"
 #include "Block.h"
