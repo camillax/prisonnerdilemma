@@ -151,17 +151,14 @@ int main(void)
                     switch(player_id)
                     {
                         case 0:
-                            player_id=1;
                             mirror_x = p1_x;
                             mirror_y = p1_y-100;
                             break;
                         case 1:
-                            player_id=2;
                             mirror_x = p2_x;
                             mirror_y = p2_y-100;
                             break;
                         case 2:
-                            player_id=1;
                             mirror_x = p1_x;
                             mirror_y = p1_y-100;
                             break;
