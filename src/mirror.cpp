@@ -108,6 +108,18 @@ void Mirror::DrawMirror(void) const {
 }
 
 bool Mirror::Hit(int lx, int ly) const {
+	double xc = (double)x + (hei / 2.)*sin(angle);
+	double yc = (double)y + (hei / 2.)*cos(angle);
+
+	double x1 = xc + (wid / 2)*cos(angle);
+	double y1 = yc - (wid / 2)*sin(angle);
+	double x2 = x1 - hei*sin(angle);
+	double y2 = y1 - hei*cos(angle);
+	double x3 = x2 - wid*cos(angle);
+	double y3 = y2 + wid*sin(angle);
+	double x4 = x1 - wid*cos(angle);
+	double y4 = y1 + wid*sin(angle);
+
 	if (lx >= x - wid / 2. && lx <= x + wid / 2. &&
 		ly >= y - hei / 2. && ly <= y + hei / 2.) {
 		return true;

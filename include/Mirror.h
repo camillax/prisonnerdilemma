@@ -22,11 +22,13 @@ public:
 
 	void SetX(int mx);
 	void SetY(int my);
+	void SetAngle(double theta);
 	double GetX(void) const;
 	double GetY(void) const;
+	double GetAngle(void) const;
 
 
-	void Place(int mx, int my);
+	void Place(int mx, int my, double theta);
 	bool Hit(int lx, int ly) const;
 	void DrawMirror(void) const;
 };
@@ -42,7 +44,7 @@ public:
 	~MirrorAll();
 
 	void CleanUp(void);
-	void AddMirror(int mx, int my); //can change to take doubles as well
+	void AddMirror(int mx, int my, double theta); //can change to take doubles as well
 	void Draw(void) const;
 	bool AnyHit(int lx, int ly) const;
 };
