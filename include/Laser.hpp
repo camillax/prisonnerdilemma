@@ -94,7 +94,7 @@ bool Laser::CheckHit(MirrorAll &mirrors){
 
 bool Laser::CheckHit(Player &player)
 {
-    if(player.hit(x,y))
+    if(player.hit(x,y)&&ExistState==1)
     {
         return true;
     }
