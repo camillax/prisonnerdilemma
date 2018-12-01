@@ -1,4 +1,10 @@
-#include "Block.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include <time.h>
+#include "fssimplewindow.h"
+#include "yspng.h"
+using namespace std;
 
 /* 	
 	Window size (600, 800)
@@ -13,7 +19,6 @@ void DrawRedBlock(int x, int y) {
 	redBrick.Flip();
 	glRasterPos2d(x, y);  // bottom left
 	glDrawPixels(redBrick.wid, redBrick.hei, GL_RGBA, GL_UNSIGNED_BYTE, redBrick.rgba);
-
 }
 
 void DrawGreyBlock(int x, int y) {
@@ -24,15 +29,15 @@ void DrawGreyBlock(int x, int y) {
 	glDrawPixels(greyBrick.wid, greyBrick.hei, GL_RGBA, GL_UNSIGNED_BYTE, greyBrick.rgba);
 }
 
-void DrawBlock(int screenW_px, int screenH_px) {
+void DrawBlock() {
 	//blockWall ()
 	int layer = 11;
 	int nums = 7;
-	int base = screenH_px - 1;
+	int base = 599;
 	int incre;
 	for(int i = 0; i < layer; i ++) {
-		incre = screenW_px/4;
-		base = (screenH_px-1) - i * 39;
+		incre = 200;
+		base = 599 - i * 39;
 		for (int j = 0; j < nums; j ++) {
 			if (j % 2 == 0) {
 				DrawRedBlock(incre, base);
@@ -44,17 +49,29 @@ void DrawBlock(int screenW_px, int screenH_px) {
 			}
 		}
 	}
+
 }
 
-//int main() {
-//	FsOpenWindow(16, 16, 800, 600, 1);
-//	bool termFlag = false;
-//	while (!termFlag) {
-//		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-//		DrawBlock();
-//		FsSwapBuffers();
-//		FsSleep(25);
-//	}
-//	return 0;
-//}
 
+bool BlockCheckHit(int x, int y) {
+	// (x, y) is the coordinate of the laser beam (point end)
+	// xRange(200, 570), yRange(599, 365)
+	if ((x == 200 && y >= 365) || (y == 365 && (x >= 200 && x <= 570)) || (x == 570 && y >= 365)) {
+		return true;
+	}
+	return false;
+}
+/*
+
+int main() {
+	FsOpenWindow(16, 16, 800, 600, 1);
+	bool termFlag = false;
+	while (!termFlag) {
+		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+		DrawBlock();
+		FsSwapBuffers();
+		FsSleep(25);
+	}
+	return 0;
+}
+*/
