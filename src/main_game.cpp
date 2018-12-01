@@ -85,6 +85,7 @@ int main(void)
 
     while (0 == terminate)
     {
+	sound.PlayBackground();
         FsPollDevice();
         auto key = FsInkey();
 
