@@ -56,7 +56,7 @@ void DrawBlock() {
 bool BlockCheckHit(int x, int y) {
 	// (x, y) is the coordinate of the laser beam (point end)
 	// xRange(200, 570), yRange(599, 365)
-	if ((x >= 200 && y >= 365) || ((y >= 360 && y <= 370 ) && (x >= 200 && x <= 570)) || (x <= 570 && y >= 365)) {
+	if ((x >= 200 && y >= 209) || ( y >= 209 && (x >= 200 && x <= 570)) || (x <= 570 && y >= 209)) {
 		return true;
 	}
 	return false;
