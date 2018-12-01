@@ -1,9 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include "fssimplewindow.h"
 
 #define winWid 800 //can change depending on final code
 #define winHei 600 //can change depending on final code
+#define mirrPI 3.14159265359
 
 
 /*Mirror Class:
@@ -18,16 +20,19 @@ public:
 private:
 	double wid, hei;
 	double x, y; //center of mirror
+	double angle;
 public:
 	Mirror(); //constructor sets x, y to -1
 
 	void SetX(int mx);
 	void SetY(int my);
+	void SetAngle(double theta);
 	double GetX(void) const;
 	double GetY(void) const;
+	double GetAngle(void) const;
 
 
-	void Place(int mx, int my);
+	void Place(int mx, int my, double theta);
 	bool Hit(int lx, int ly) const;
 	void DrawMirror(void) const;
 };
@@ -40,11 +45,15 @@ Mirror::Mirror(void) {
 }
 
 void Mirror::SetX(int mx) {
-	x = mx;
+	x = (double)mx;
 }
 
 void Mirror::SetY(int my) {
-	y = my;
+	y = (double)my;
+}
+
+void Mirror::SetAngle(double theta) {
+	angle = theta;
 }
 
 double Mirror::GetX(void) const {
@@ -55,7 +64,11 @@ double Mirror::GetY(void) const {
 	return y;
 }
 
-void Mirror::Place(int mx, int my) {
+double Mirror::GetAngle(void) const {
+	return angle;
+}
+
+void Mirror::Place(int mx, int my, double theta) {
 	//insert other restrictions as necessary
 	//return if placement not valid
 	//for x wrt window
@@ -68,14 +81,29 @@ void Mirror::Place(int mx, int my) {
 	}
 	SetX(mx);
 	SetY(my);
+	SetAngle(theta*mirrPI/180.);
 }
 
 void Mirror::DrawMirror(void) const {
 	glBegin(GL_QUADS);
-	glVertex2i(x - wid / 2., y - hei / 2.);
-	glVertex2i(x + wid / 2., y - hei / 2.);
-	glVertex2i(x + wid / 2., y + hei / 2.);
-	glVertex2i(x - wid / 2., y + hei / 2.);
+
+	double xc = (double)x + (hei/2.)*sin(angle);
+	double yc = (double)y + (hei/2.)*cos(angle);
+
+	double x1 = xc + (wid/2)*cos(angle);
+	double y1 = yc - (wid/2)*sin(angle);
+	double x2 = x1 - hei*sin(angle);
+	double y2 = y1 - hei*cos(angle);
+	double x3 = x2 - wid*cos(angle);
+	double y3 = y2 + wid*sin(angle);
+	double x4 = x1 - wid*cos(angle);
+	double y4 = y1 + wid*sin(angle);
+
+
+	glVertex2i(x1, y1);
+	glVertex2i(x2, y2);
+	glVertex2i(x3, y3);
+	glVertex2i(x4, y4);
 	glEnd();
 }
 
@@ -104,7 +132,7 @@ public:
 	~MirrorAll();
 
 	void CleanUp(void);
-	void AddMirror(int mx, int my); //can change to take doubles as well
+	void AddMirror(int mx, int my, double theta); //can change to take doubles as well
 	void Draw(void) const;
 	bool AnyHit(int lx, int ly) const;
 };
@@ -127,7 +155,7 @@ void MirrorAll::CleanUp(void) {
 }
 
 //Adds a mirror
-void MirrorAll::AddMirror(int mx, int my) {
+void MirrorAll::AddMirror(int mx, int my, double theta) {
 	//If array is uninitialized, initializes it
 	if (mirrArray == NULL) {
 		//hopefully 1000 is plenty...don't want to deal with ubas
@@ -137,7 +165,7 @@ void MirrorAll::AddMirror(int mx, int my) {
 
 	//add to array, increase index
 	Mirror newMirr = Mirror();
-	newMirr.Place(mx, my);
+	newMirr.Place(mx, my, theta);
 	mirrArray[ind] = newMirr;
 	ind++;
 }
@@ -163,9 +191,9 @@ bool MirrorAll::AnyHit(int lx, int ly) const {
 //	MirrorAll mirrors = MirrorAll();
 //
 //	//hardcoded, replace with mouse polling inputs
-//	mirrors.AddMirror(60, 100);
-//	mirrors.AddMirror(100, 300);
-//	mirrors.AddMirror(600, 400);
+//	mirrors.AddMirror(60, 100, 20);
+//	mirrors.AddMirror(100, 300, 45);
+//	mirrors.AddMirror(600, 400, 90);
 //
 //	FsOpenWindow(16, 16, winWid, winHei, 1);
 //	while (term == 0) {
