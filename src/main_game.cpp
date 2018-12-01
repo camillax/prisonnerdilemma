@@ -276,6 +276,20 @@ int main(void)
                 {
                     beam.Move();
                     beam.CheckHit(mirrors);
+		    if(player_id==1)
+                    {
+                        if(beam.CheckHit(shooters[1]))
+                        {
+                            winner[0] = true;
+                        }
+                    }
+                    if(player_id==2)
+                    {
+                        if(beam.CheckHit(shooters[0]))
+                        {
+                            winner[1] = true;
+                        }
+                    }
                     beam.CheckExist();
                     beam.Draw();
                 }
