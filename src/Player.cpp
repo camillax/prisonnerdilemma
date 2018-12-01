@@ -69,6 +69,25 @@ void Player::ChangePlayerVal(int angle, int x, int y)
     }
 }
 
+bool Player::hit(int x, int y)
+{
+    bool c_x=false, c_y=false;
+    if(x<=(p_x+head_w/2)&&x>=(p_x-head_w/2))
+    {
+        c_x = true;
+    }
+    if(y>=(p_y-(body_l/2+head_l))&&y<=(p_y+(body_l/2+leg_l)))
+    {
+        c_y = true;
+    }
+    if(c_y&&c_x)
+    {
+        return true;
+    }
+    return false;
+}
+
+
 void Player::DrawPlayer() {
     //set the color of the player 1 is green, 2 is blue and the default is black
     switch(p_num)
