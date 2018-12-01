@@ -177,13 +177,13 @@ int main(void)
                 {
                     if(player_id==1)
                     {
-                        dtt_1++;
-                        shooters[0].ChangePlayerVal(-1);
+                        dtt_1+=5;
+                        shooters[0].ChangePlayerVal(-5);
                     }
                     else if(player_id==2)
                     {
-                        dtt_2--;
-                        shooters[1].ChangePlayerVal(1);
+                        dtt_2-=5;
+                        shooters[1].ChangePlayerVal(5);
                     }
                 }
                 if(mirror_init_flag)
@@ -196,13 +196,13 @@ int main(void)
                 {
                     if(player_id==1)
                     {
-                        dtt_1--;
-                        shooters[0].ChangePlayerVal(1);
+                        dtt_1-=5;
+                        shooters[0].ChangePlayerVal(5);
                     }
                     else if(player_id==2)
                     {
-                        dtt_2++;
-                        shooters[1].ChangePlayerVal(-1);
+                        dtt_2+=5;
+                        shooters[1].ChangePlayerVal(-5);
                     }
                 }
                 if(mirror_init_flag)
