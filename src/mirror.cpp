@@ -16,7 +16,7 @@ Hit(lx, ly)--given laser location lx, ly, will check
 if it has been hit*/
 
 bool distEqual(double a, double b) {
-	return (fabs(a - b) < 0.01);
+	return (fabs(a - b) < 1);
 }
 
 class Mirror {
