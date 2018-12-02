@@ -178,7 +178,7 @@ public:
 	void SetHitAngle(int ind);
 	double GetHitAngle(void) const;
 	void Draw(void) const;
-	bool AnyHit(int lx, int ly) const;
+	bool AnyHit(int lx, int ly);
 };
 
 //Constructor. Initializes array as NULL and index as 0
@@ -236,7 +236,7 @@ void MirrorAll::Draw(void) const {
 }
 
 //Checks if any of the mirrors have been hit
-bool MirrorAll::AnyHit(int lx, int ly) const {
+bool MirrorAll::AnyHit(int lx, int ly) {
 	for (int i = 0; i < ind; i++) {
 		if (mirrArray[i].Hit(lx, ly)) {
 			SetHitAngle(i);
