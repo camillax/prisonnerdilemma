@@ -116,7 +116,7 @@ int main(void)
                 }
                 if(mirror_init_flag)
                 {
-                    mirrors.AddMirror(mirror_x, mirror_y);
+                    mirrors.AddMirror(mirror_x, mirror_y,0);
                     mirror_init_flag=false;
                     mirror_place_flag=true;
                 }
@@ -302,7 +302,7 @@ int main(void)
                 if(mirror_init_flag)
                 {
                     Mirror mirror;
-                    mirror.Place(mirror_x,mirror_y);
+                    mirror.Place(mirror_x,mirror_y,0);
                     mirror.DrawMirror();
                 }
                 mirrors.Draw(); //replace parameters with laser coordinates

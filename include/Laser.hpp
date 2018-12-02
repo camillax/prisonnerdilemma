@@ -78,9 +78,9 @@ bool Laser::CheckHit(MirrorAll &mirrors){
         theta = 2.0*alpha - theta;
         hitCount++;
     }
-    //if(BlockCheckHit(x, y) == true){
-    //    hitCount = hitMax;
-    //}
+    if(BlockCheckHit(x, y) == true){
+        hitCount = hitMax;
+    }
 
     if(mirrors.AnyHit(x, y) == false){
         double alpha = 180.0;
