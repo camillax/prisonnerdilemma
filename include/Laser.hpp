@@ -83,7 +83,7 @@ bool Laser::CheckHit(MirrorAll &mirrors){
     }
 
     if(mirrors.AnyHit(x, y) == false){
-        double alpha = 180.0;
+        double alpha = 180/Pi*mirrors.GetHitAngle();//180.0;
         theta = 2.0*alpha - theta;
         hitCount++;
         return true; 

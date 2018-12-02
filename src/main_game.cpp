@@ -76,7 +76,7 @@ int main(void)
     //because keitaro is terrible at coding, more global parameters!!:)
     int dt_theta=0, dtt_1=0, dtt_2=0;
     int player_id = 0;
-    int p_x, p_y, mirror_x, mirror_y;
+    int p_x, p_y, mirror_x, mirror_y, mirror_theta = 0;
     bool fire_flag = false, mirror_place_flag = false;
     bool shooting_init_flag = false, mirror_init_flag=false;
 
@@ -118,7 +118,7 @@ int main(void)
                 }
                 if(mirror_init_flag)
                 {
-                    mirrors.AddMirror(mirror_x, mirror_y,0);
+                    mirrors.AddMirror(mirror_x, mirror_y,mirror_theta);
                     mirror_init_flag=false;
                     mirror_place_flag=true;
                 }
@@ -157,6 +157,7 @@ int main(void)
                 if(!mirror_init_flag && !mirror_place_flag)
                 {
                     mirror_init_flag=true;
+                    mirror_theta = 0;
                     switch(player_id)
                     {
                         case 0:
@@ -224,6 +225,11 @@ int main(void)
                     mirror_x+=5;
                 }
                 break;
+            case FSKEY_R:
+                if(mirror_init_flag)
+                {
+                    mirror_theta += 15;
+                }
         }
         //std::cout << dt_theta << endl;
 
@@ -304,7 +310,7 @@ int main(void)
                 if(mirror_init_flag)
                 {
                     Mirror mirror;
-                    mirror.Place(mirror_x,mirror_y,0);
+                    mirror.Place(mirror_x,mirror_y,mirror_theta);
                     mirror.DrawMirror();
                 }
                 mirrors.Draw(); //replace parameters with laser coordinates

@@ -51,7 +51,7 @@ public:
 	void SetHitAngle(int ind);
 	double GetHitAngle(void) const;
 	void Draw(void) const;
-	bool AnyHit(int lx, int ly) const;
+	bool AnyHit(int lx, int ly);
 };
 
 #endif //HW_MIRROR_H

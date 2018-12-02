@@ -127,6 +127,24 @@ void Player::DrawPlayer() {
     glVertex2d(p_x-leg_w/2, p_y+(body_l/2+leg_l));
     glEnd();
     //arm
+    switch(p_num)
+    {
+        case 2:
+            r = 0;
+            g = 128;
+            b = 0;
+            break;
+        case 1:
+            r = 0;
+            g = 0;
+            b = 128;
+            break;
+        default:
+            r = 0;
+            g = 0;
+            b = 0;
+    }
+    glColor3ub(r,g,b);
     glLineWidth((GLfloat)10);
     glEnable(GL_LINE_SMOOTH);
     glBegin(GL_LINES);
